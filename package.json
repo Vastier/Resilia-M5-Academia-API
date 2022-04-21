@@ -1,0 +1,39 @@
+{
+  "name": "resilia-m5-academia-api",
+  "version": "0.0.1",
+  "description": "API de Academia criada para o front do Projeto final do módulo 5 da Resilia Educação.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./src/server.js",
+    "dev": "nodemon ./src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vastier/Resilia-M5-Academia-API.git"
+  },
+  "keywords": [
+    "API",
+    "academia",
+    "resilia",
+    "node",
+    "express",
+    "javascript"
+  ],
+  "author": "Vastier",
+  "license": "Unlicense",
+  "bugs": {
+    "url": "https://github.com/Vastier/Resilia-M5-Academia-API/issues"
+  },
+  "homepage": "https://github.com/Vastier/Resilia-M5-Academia-API#readme",
+  "dependencies": {
+    "express": "^4.17.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  },
+  "nodemonConfig": {
+    "delay": 3000
+  },
+  "type": "module"
+}
