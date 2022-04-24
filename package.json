@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./src/server.js",
-    "dev": "nodemon ./src/server.js"
+    "dev": "nodemon ./src/server.js",
+    "create": "node ./src/database/create.js"
   },
   "repository": {
     "type": "git",
@@ -27,7 +28,10 @@
   },
   "homepage": "https://github.com/Vastier/Resilia-M5-Academia-API#readme",
   "dependencies": {
-    "express": "^4.17.3"
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "express": "^4.17.3",
+    "sqlite3": "^5.0.5"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
