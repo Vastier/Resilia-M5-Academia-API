@@ -70,6 +70,51 @@ class UsuariosDAO {
 		})
 	}
 	
+	inserirMedidas = (medidas) => {
+		return new Promise((resolve, reject) => { 
+			this.db.run(
+				'INSERT INTO MEDIDAS (user_id, altura, peso, massaMuscular, ombros, taxaGordura, tricipal, peitoral, cintura, quadril, bracoE, bracoD, pernaE, pernaD, panturrilhaE, panturrilhaD, abdomem, gluteo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+				medidas.user_id,
+				medidas.altura, 
+				medidas.peso, 
+				medidas.massaMuscular, 
+				medidas.ombros, 
+				medidas.taxaGordura, 
+				medidas.tricipal, 
+				medidas.peitoral, 
+				medidas.cintura, 
+				medidas.quadril, 
+				medidas.bracoE, 
+				medidas.bracoD, 
+				medidas.pernaE, 
+				medidas.pernaD, 
+				medidas.panturrilhaE, 
+				medidas.panturrilhaD, 
+				medidas.abdomem, 
+				medidas.gluteo, 
+				(error) => {
+					if (error) {
+						reject(error)
+					} else {
+						resolve(`Medidas adicionadas ao banco de dados com sucesso.`)
+					}
+				}
+			)
+		 })
+	}
+
+	listaTodasMedidas = () => {
+		return new Promise((resolve, reject) => {
+			this.db.all('SELECT * FROM MEDIDAS', (error, rows) => {
+				if(error){
+					reject(error)
+				}else{
+					resolve(rows)
+				}
+			})
+		});
+	}
+
 	_verificaId = (id) => {
 		return new Promise((resolve, reject) => {
 			this.db.all(

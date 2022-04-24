@@ -76,6 +76,31 @@ const usuariosController = (app, db) => {
 		}
 	})
 
+	app.post('/medidas/cadastrar', async (req, res)=>{
+		const user = req.body
+		try {
+			const registraMedidas = await usuariosModel.inserirMedidas(user)
+			res.status(200).json({registraMedidas})
+		} catch (error) {
+			res.status(400).json({
+				"erro": true,
+				"mensagem de erro": error.message,
+			})
+		}
+	})
+
+	app.get('/medidas/listar', async (req, res)=>{
+		try {
+			const listaMedidas = await usuariosModel.listaTodasMedidas()
+			res.status(200).json({listaMedidas})
+		} catch (error) {
+			res.status(400).json({
+				"erro": true,
+				"mensagem de erro": error.message,
+			})
+		}
+	})
+
 }
 
 export default usuariosController

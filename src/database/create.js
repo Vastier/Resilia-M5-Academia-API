@@ -12,6 +12,8 @@ const CRIA_TABELA_USUARIOS = `
 const CRIA_TABELA_MEDIDAS = `
 	CREATE TABLE IF NOT EXISTS "medidas"(
 	id INTEGER PRIMARY KEY NOT NULL,
+	timestamp DATETIME NOT NULL DEFAULT (datetime(CURRENT_TIMESTAMP, 'localtime')),
+	user_id INTEGER,
 	altura DECIMAL(3,2),
 	peso DECIMAL(3,2),
 	massaMuscular DECIMAL(3,2),
@@ -28,8 +30,7 @@ const CRIA_TABELA_MEDIDAS = `
 	panturrilhaE DECIMAL(3,2),
 	panturrilhaD DECIMAL(3,2),
 	abdomem DECIMAL(3,2),
-	gluteo DECIMAL(3,2),
-	user_id INTEGER
+	gluteo DECIMAL(3,2)
 	)`
 
 function criaTabelaUsuarios() {

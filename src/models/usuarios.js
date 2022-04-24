@@ -64,6 +64,25 @@ class Usuarios{
 		}
 	}
 
+	inserirMedidas = async (medidas) => {
+		try {
+			return await this.dao.inserirMedidas(medidas)
+		} catch (error) {
+			throw new Error(error)
+		}
+	}
+
+	listaTodasMedidas = async () => {
+		try {
+			const resposta = await this.dao.listaTodasMedidas()
+			if (resposta.length > 0){
+				return resposta
+			} else throw "A Lista está vazia."
+		} catch (error) {
+			throw new Error(error)
+		}
+	}
+
 	_usuarioPorId = async (id) => {
 		try {
 			const resposta = await this.dao._verificaId(id)
