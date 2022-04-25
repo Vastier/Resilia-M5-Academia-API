@@ -1,8 +1,13 @@
+import { celebrate, errors, Segments } from 'celebrate'
+import { cadastroSchema } from '../models/schema/usuarios-schema.js';
 import Usuarios from '../models/usuarios.js'
 import bcrypt from 'bcrypt'
 
 const usuariosController = (app, db) => {
 	const usuariosModel = new Usuarios(db)
+
+	const validarBodyCadastro = {[Segments.BODY]: cadastroSchema}
+
 	const _cryptaSenha = async (senha) => {
 		try {
 			const get_salty = 11
@@ -24,17 +29,21 @@ const usuariosController = (app, db) => {
 		}
 	})
 	
-	app.post('/cadastrar', async (req, res)=>{
+	app.post('/cadastrar', celebrate(validarBodyCadastro, { abortEarly: false }, {mode: 'full'}), async (req, res)=>{
 		
 		const user = req.body
 		try {
+			const emailExiste = await usuariosModel._usuarioPorEmail(user.email)
+			if (emailExiste.length > 0) {
+				throw 'Email já cadastrado.'
+			}
 			user.senha = await _cryptaSenha(user.senha)
 			const registraUser = await usuariosModel.inserirUsuario(user)
-			res.status(200).json({registraUser})
+			res.status(201).json({registraUser})
 		} catch (error) {
-			res.status(400).json({
+			res.status(400).send({
 				"erro": true,
-				"mensagem de erro": error.message,
+				"Mensagem de erro": error,
 			})
 		}
 	})
@@ -101,6 +110,22 @@ const usuariosController = (app, db) => {
 		}
 	})
 
+
+	app.get('/medidas/porid/:id', async (req, res)=>{
+		const id = req.params.id
+		try {
+			const listaMedidas = await usuariosModel._listaMedidasPorId(id)
+			res.status(200).json({listaMedidas})
+		} catch (error) {
+			res.status(400).json({
+				"erro": true,
+				"mensagem de erro": error.message,
+			})
+		}
+	})
+
+	app.use(errors({message: "Não foi possível validar seu pedido."}));
+	
 }
 
 export default usuariosController

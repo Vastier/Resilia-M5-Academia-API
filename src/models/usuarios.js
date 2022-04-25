@@ -21,7 +21,7 @@ class Usuarios{
 		try {
 			return await this.dao.registraUsuario(usuario)
 		} catch (error) {
-			throw new Error(error)
+			throw (error)
 		}
 	}
 	
@@ -68,7 +68,7 @@ class Usuarios{
 		try {
 			return await this.dao.inserirMedidas(medidas)
 		} catch (error) {
-			throw new Error(error)
+			throw (error)
 		}
 	}
 
@@ -83,12 +83,23 @@ class Usuarios{
 		}
 	}
 
+	_listaMedidasPorId = async (id) => {
+		try {
+			const resposta = await this.dao._listaMedidasPorId(id)
+			if (resposta.length > 0){
+				return resposta
+			} else throw "ID sem medidas."
+		} catch (error) {
+			throw new Error(error)
+		}
+	}
+
 	_usuarioPorId = async (id) => {
 		try {
 			const resposta = await this.dao._verificaId(id)
 			return resposta
 		} catch (error) {
-			throw new Error(error)
+			throw (error)
 		}
 	}
 	
@@ -97,10 +108,9 @@ class Usuarios{
 			const resposta = await this.dao._verificaEmail(email)
 			return resposta
 		} catch (error) {
-			throw new Error(error)
+			throw (error)
 		}
 	}
-
 
 }
 

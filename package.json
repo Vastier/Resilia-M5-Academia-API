@@ -29,8 +29,11 @@
   "homepage": "https://github.com/Vastier/Resilia-M5-Academia-API#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "celebrate": "^15.0.1",
     "cors": "^2.8.5",
+    "cpf-cnpj-validator": "^1.0.3",
     "express": "^4.17.3",
+    "joi": "^17.6.0",
     "sqlite3": "^5.0.5"
   },
   "devDependencies": {

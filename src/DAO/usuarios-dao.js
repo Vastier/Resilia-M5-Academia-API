@@ -73,14 +73,16 @@ class UsuariosDAO {
 	inserirMedidas = (medidas) => {
 		return new Promise((resolve, reject) => { 
 			this.db.run(
-				'INSERT INTO MEDIDAS (user_id, altura, peso, massaMuscular, ombros, taxaGordura, tricipal, peitoral, cintura, quadril, bracoE, bracoD, pernaE, pernaD, panturrilhaE, panturrilhaD, abdomem, gluteo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+				'INSERT INTO MEDIDAS (user_id, altura, peso, massaMuscular, ombrosE, ombrosD, taxaGordura, tricipalE, tricipalD, peitoral, cintura, quadril, bracoE, bracoD, pernaE, pernaD, panturrilhaE, panturrilhaD, abdomem, gluteo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
 				medidas.user_id,
 				medidas.altura, 
 				medidas.peso, 
 				medidas.massaMuscular, 
-				medidas.ombros, 
+				medidas.ombrosE, 
+				medidas.ombrosD, 
 				medidas.taxaGordura, 
-				medidas.tricipal, 
+				medidas.tricipalE, 
+				medidas.tricipalD, 
 				medidas.peitoral, 
 				medidas.cintura, 
 				medidas.quadril, 
@@ -106,6 +108,20 @@ class UsuariosDAO {
 	listaTodasMedidas = () => {
 		return new Promise((resolve, reject) => {
 			this.db.all('SELECT * FROM MEDIDAS', (error, rows) => {
+				if(error){
+					reject(error)
+				}else{
+					resolve(rows)
+				}
+			})
+		});
+	}
+
+	_listaMedidasPorId = (id) => {
+		return new Promise((resolve, reject) => {
+			this.db.all('SELECT * FROM MEDIDAS WHERE user_id = ?',
+			id,
+			(error, rows) => {
 				if(error){
 					reject(error)
 				}else{
