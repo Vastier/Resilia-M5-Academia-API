@@ -1,12 +1,10 @@
-import { celebrate, errors, Segments } from 'celebrate'
 import { cadastroSchema } from '../models/schema/usuarios-schema.js';
 import Usuarios from '../models/usuarios.js'
 import bcrypt from 'bcrypt'
+import Joi from "joi"
 
 const usuariosController = (app, db) => {
 	const usuariosModel = new Usuarios(db)
-
-	const validarBodyCadastro = {[Segments.BODY]: cadastroSchema}
 
 	const _cryptaSenha = async (senha) => {
 		try {
@@ -29,10 +27,11 @@ const usuariosController = (app, db) => {
 		}
 	})
 	
-	app.post('/cadastrar', celebrate(validarBodyCadastro, { abortEarly: false }, {mode: 'full'}), async (req, res)=>{
+	app.post('/cadastrar', async (req, res)=>{
 		
 		const user = req.body
 		try {
+			Joi.assert(user, cadastroSchema, { abortEarly: false })
 			const emailExiste = await usuariosModel._usuarioPorEmail(user.email)
 			if (emailExiste.length > 0) {
 				throw 'Email já cadastrado.'
@@ -124,7 +123,6 @@ const usuariosController = (app, db) => {
 		}
 	})
 
-	app.use(errors({message: "Não foi possível validar seu pedido."}));
 	
 }
 
