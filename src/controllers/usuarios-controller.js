@@ -32,10 +32,6 @@ const usuariosController = (app) => {
 		const user = req.body
 		try {
 			Joi.assert(user, cadastroSchema, { abortEarly: false })
-			const emailExiste = await usuariosModel._usuarioPorEmail(user.email)
-			if (emailExiste.length > 0) {
-				throw 'Email já cadastrado.'
-			}
 			user.senha = await _cryptaSenha(user.senha)
 			const registraUser = await usuariosModel.inserirUsuario(user)
 			res.status(201).json({registraUser})

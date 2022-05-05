@@ -19,6 +19,10 @@ class Usuarios{
 
 	inserirUsuario = async (usuario) => {
 		try {
+			const emailExiste = await this.dao._verificaEmail(usuario.email)
+			if (emailExiste.length > 0) {
+				throw 'Email já cadastrado.'
+			}
 			return await this.dao.registraUsuario(usuario)
 		} catch (error) {
 			throw (error)
