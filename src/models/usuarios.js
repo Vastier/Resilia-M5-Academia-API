@@ -1,10 +1,19 @@
 import UsuariosDAO from '../DAO/usuarios-dao.js'
-
+import bcrypt from 'bcrypt'
 class Usuarios{
 	constructor(){
 		this.dao = new UsuariosDAO()
 	}
 
+	_cryptaSenha = async (senha) => {
+		try {
+			const get_salty = 11
+			return bcrypt.hash(senha, get_salty)
+		} catch (error) {
+			throw new Error(error)
+		}
+	}
+	
 	
 	listarTodosUsuarios = async () => {
 		try {

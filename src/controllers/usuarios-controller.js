@@ -1,20 +1,10 @@
 import { cadastroSchema } from '../models/schema/usuarios-schema.js';
 import Usuarios from '../models/usuarios.js'
-import bcrypt from 'bcrypt'
 import Joi from "joi"
 
 const usuariosController = (app) => {
 	const usuariosModel = new Usuarios()
 
-	const _cryptaSenha = async (senha) => {
-		try {
-			const get_salty = 11
-			return bcrypt.hash(senha, get_salty)
-		} catch (error) {
-			throw new Error(error)
-		}
-	}
-	
 	app.get('/usuarios', async (req, res)=>{
 		try {
 			const listaUsuarios = await usuariosModel.listarTodosUsuarios()
@@ -32,7 +22,7 @@ const usuariosController = (app) => {
 		const user = req.body
 		try {
 			Joi.assert(user, cadastroSchema, { abortEarly: false })
-			user.senha = await _cryptaSenha(user.senha)
+			user.senha = await usuariosModel._cryptaSenha(user.senha)
 			const registraUser = await usuariosModel.inserirUsuario(user)
 			res.status(201).json({registraUser})
 		} catch (error) {
@@ -47,7 +37,7 @@ const usuariosController = (app) => {
 		const id = req.params.id
 		const usuarioAtualizado = req.body
 		try {
-			usuarioAtualizado.senha = await _cryptaSenha(usuarioAtualizado.senha)
+			usuarioAtualizado.senha = await usuariosModel._cryptaSenha(usuarioAtualizado.senha)
 			const respostaAtualizaUsuario = await usuariosModel.atualizaUsuario(id, usuarioAtualizado)
 			res.status(200).json({
 				"erro": false, 
