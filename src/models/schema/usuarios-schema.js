@@ -1,5 +1,5 @@
 import JoiBase from "joi"
-import validator from "./cpf-validator.js";
+import validator from "../../utils/cpf-validator.js";
 
 
 const Joi = JoiBase.extend(validator);
