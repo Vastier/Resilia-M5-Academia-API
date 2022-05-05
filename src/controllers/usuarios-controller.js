@@ -3,8 +3,8 @@ import Usuarios from '../models/usuarios.js'
 import bcrypt from 'bcrypt'
 import Joi from "joi"
 
-const usuariosController = (app, db) => {
-	const usuariosModel = new Usuarios(db)
+const usuariosController = (app) => {
+	const usuariosModel = new Usuarios()
 
 	const _cryptaSenha = async (senha) => {
 		try {

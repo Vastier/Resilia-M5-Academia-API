@@ -1,6 +1,7 @@
+import db from '../database/sqlite-db.js'
 
 class UsuariosDAO {
-	constructor(db){
+	constructor(){
 		this.db = db
 	}
 

@@ -1,8 +1,8 @@
 import UsuariosDAO from '../DAO/usuarios-dao.js'
 
 class Usuarios{
-	constructor(db){
-		this.dao = new UsuariosDAO(db)
+	constructor(){
+		this.dao = new UsuariosDAO()
 	}
 
 	
